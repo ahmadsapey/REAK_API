@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
-class ProfilController extends Controller
+class ProfileController extends Controller
 {
     public function show(Request $request): JsonResponse
     {
@@ -55,7 +55,7 @@ class ProfilController extends Controller
         return response()->json(['message' => 'Password berhasil diubah']);
     }
 
-    public function uploadFoto(Request $request): JsonResponse
+    public function updateFoto(Request $request): JsonResponse
     {
         $request->validate([
             'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
