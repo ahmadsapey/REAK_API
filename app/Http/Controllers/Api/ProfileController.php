@@ -65,18 +65,21 @@ class ProfileController extends Controller
 
         // Hapus foto lama jika ada
         if ($user->foto) {
-            $oldPath = str_replace(config('app.url') . '/storage/', '', $user->foto);
-            Storage::disk('public')->delete($oldPath);
+            $parsed = parse_url($user->foto);
+            $oldPath = ltrim(str_replace('/storage/', '', $parsed['path'] ?? ''), '/');
+            if ($oldPath) {
+                Storage::disk('public')->delete($oldPath);
+            }
         }
 
         $path = $request->file('foto')->store('foto-profil', 'public');
-        $url = config('app.url') . '/storage/' . $path;
+        $url = url('storage/' . $path);
 
         $user->update(['foto' => $url]);
 
         return response()->json([
-            'message' => 'Foto profil berhasil diperbarui',
             'data'    => ['foto' => $url],
+            'message' => 'Foto profil berhasil diperbarui',
         ]);
     }
 }

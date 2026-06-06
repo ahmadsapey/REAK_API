@@ -42,13 +42,13 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::put('/profile/password', [ProfileController::class, 'updatePassword']);
-    Route::put('/profile/foto', [ProfileController::class, 'updateFoto']);
+    Route::match(['put', 'post'], '/profile/foto', [ProfileController::class, 'updateFoto']);
 
     // Alias route untuk path Bahasa Indonesia /profil
     Route::get('/profil', [ProfileController::class, 'show']);
     Route::put('/profil', [ProfileController::class, 'update']);
     Route::put('/profil/password', [ProfileController::class, 'updatePassword']);
-    Route::put('/profil/foto', [ProfileController::class, 'updateFoto']);
+    Route::match(['put', 'post'], '/profil/foto', [ProfileController::class, 'updateFoto']);
 });
 
 Route::get('/', function () {
